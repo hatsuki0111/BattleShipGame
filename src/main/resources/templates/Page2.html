@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>お互いの準備ができました！攻撃しましょう！</p><br>
+<form action='Signed' method='post'>
+    縦(0～4)<input type='text' name='line'><br />
+    横(0～4)<input type='text' name='column'><br />
+    <button type='submit'>送信</button>
+</form>
+<p>あなたの陣地</p>
+<table border="1">
+    <tr>
+    <th> </th>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    </tr>
+    <tr>
+    <th>0</th>
+    <td th:text="${zahyou eq 1}?'w':' '"></td>
+    <td th:text="${zahyou eq 2}?'w':' '"></td>
+    <td th:text="${zahyou eq 3}?'w':' '"></td>
+    <td th:text="${zahyou eq 4}?'w':' '"></td>
+    <td th:text="${zahyou eq 5}?'w':' '"></td>
+    </tr>
+    <tr>
+    <th>1</th>
+    <td th:text="${zahyou eq 6}?'w':' '"></td>
+    <td th:text="${zahyou eq 7}?'w':' '"></td>
+    <td th:text="${zahyou eq 8}?'w':' '"></td>
+    <td th:text="${zahyou eq 9}?'w':' '"></td>
+    <td th:text="${zahyou eq 10}?'w':' '"></td>
+    </tr>
+    <tr>
+    <th>2</th>
+    <td th:text="${zahyou eq 11}?'w':' '"></td>
+    <td th:text="${zahyou eq 12}?'w':' '"></td>
+    <td th:text="${zahyou eq 13}?'w':' '"></td>
+    <td th:text="${zahyou eq 14}?'w':' '"></td>
+    <td th:text="${zahyou eq 15}?'w':' '"></td>
+    </tr>
+    <tr>
+    <th>3</th>
+    <td th:text="${zahyou eq 16}?'w':' '"></td>
+    <td th:text="${zahyou eq 17}?'w':' '"></td>
+    <td th:text="${zahyou eq 18}?'w':' '"></td>
+    <td th:text="${zahyou eq 19}?'w':' '"></td>
+    <td th:text="${zahyou eq 20}?'w':' '"></td>
+    </tr>
+    <th>4</th>
+    <td th:text="${zahyou eq 21}?'w':' '"></td>
+    <td th:text="${zahyou eq 22}?'w':' '"></td>
+    <td th:text="${zahyou eq 23}?'w':' '"></td>
+    <td th:text="${zahyou eq 24}?'w':' '"></td>
+    <td th:text="${zahyou eq 25}?'w':' '"></td>
+    </tr>
+</table>
+<p>CPUの陣地</p>
+<table border="1">
+    <tr>
+        <th> </th>
+        <th>0</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+    </tr>
+    <tr>
+        <th>0</th>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <th>1</th>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <th>2</th>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr>
+        <th>3</th>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <th>4</th>
+    <td> </td>
+    <td> </td>
+    <td> </td>
+    <td> </td>
+    <td> </td>
+    </tr>
+</table>
+
+</body>
+</html>
