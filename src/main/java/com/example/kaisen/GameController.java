@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class WebController {
+public class GameController {
 
     @Autowired
     private KaisenService service;
@@ -21,9 +21,10 @@ public class WebController {
     @PostMapping("Page2")
     public String postPage1(int line, int column, Model model){
         //resultに入力した自分の座標をいれてモデルに追加
-        var result = service.register(line,column);
-        model.addAttribute("zahyou", result);
+        var myResult = service.myRegister(line,column);
+        model.addAttribute("zahyou", myResult);
 
+        var cpuResult = service.cpuRegister();
         return "Page2";
 
     }
