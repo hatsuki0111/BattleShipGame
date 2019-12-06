@@ -12,15 +12,31 @@ public class KaisenService {
     @Autowired
     private HttpSession httpSession;
 
+    MyKaisen myKaisen = new MyKaisen();
+    CpuKaisen cpuKaisen = new CpuKaisen();
+
+    //Page1の入力
     public int myRegister(int line, int column) {
 
-        MyKaisen myKaisen = new MyKaisen();
         return myKaisen.myRgister(line, column);
-
     }
-    public int cpuRegister(){
-        CpuKaisen cpuKaisen = new CpuKaisen();
-        return cpuKaisen.cpuRegister();
+    public int cpuRegisterline(){
+        return cpuKaisen.cpuRegisterline();
+    }
+    public int cpuRegistercolumn(){
+        return cpuKaisen.cpuRegistercolumn();
+    }
+
+    //Page2での入力
+    public int myRegistResult(int line, int column){
+        return myKaisen.myRegistResult(line, column);
+    }
+
+    public int cpuRegistResultline(){
+        return cpuKaisen.cpuRegistResultline();
+    }
+    public int cpuRegistResultcolumn(){
+        return cpuKaisen.cpuRegistResultcolumn();
     }
 
 }

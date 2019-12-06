@@ -16,9 +16,9 @@
 </head>
 <body>
 <p>お互いの準備ができました！攻撃しましょう！</p><br>
-<form action='Signed' method='post'>
-    縦(0～4)<input type='text' name='line'><br />
-    横(0～4)<input type='text' name='column'><br />
+<form action='Page3' method='post'>
+    縦(0～4)<input type='text' name='lineIn'><br />
+    横(0～4)<input type='text' name='columnIn'><br />
     <button type='submit'>送信</button>
 </form>
 <p>あなたの陣地</p>
@@ -34,8 +34,9 @@
     </tr>
     <tr>
     <th>0</th>
-    <td th:utext="${zahyou eq 1}?'<img src=&quot;./ship.png&quot;/>':' '"></td>
-    <td th:text="${zahyou eq 2}?'w':' '"></td>
+    <td th:utext="${line eq 0 and column eq 0}?'<img src=&quot;./ship.png&quot;/>':' '"></td>
+    <td th:text="${line eq 0 and column eq 1}?'w':' '"></td>
+
     <td th:text="${zahyou eq 3}?'w':' '"></td>
     <td th:text="${zahyou eq 4}?'w':' '"></td>
     <td th:text="${zahyou eq 5}?'w':' '"></td>

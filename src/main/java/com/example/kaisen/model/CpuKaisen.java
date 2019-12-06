@@ -4,8 +4,18 @@ import java.util.Random;
 
 public class CpuKaisen {
 
-    public int cpuRegister() {
-        Random random = new Random();
-        return random.nextInt(25) + 1;
+    Random random = new Random();
+
+    public int cpuRegisterline() {
+        return random.nextInt(5);
+    }
+    public int cpuRegistercolumn(){
+        return random.nextInt(5);
+    }
+    public int cpuRegistResultline(){
+        return random.nextInt(5);
+    }
+    public int cpuRegistResultcolumn(){
+        return random.nextInt(5);
     }
 }
