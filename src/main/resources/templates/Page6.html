@@ -23,43 +23,80 @@
     </tr>
     <tr>
         <th>0</th>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td>
+            <th:block th:switch="true">
+                <div th:case="|${line eq 0 and column eq 0} and ${line eq cRRLParse and column eq cRRCParse}?'×':(${line eq 0 and column eq 0} and ${line ne cRRLParse or column ne cRRCParse}?'・':(${line eq 0 and column eq 0}?'w':' '))|"></div>
+                <div th:case="|${line eq 0 and column eq 0} and ${line eq cpuResultcolumnPage6 and column eq cpuResultcolumnPage6}?'×':(${line eq 0 and column eq 0} and ${line ne cpuResultlinePage6 and column ne cpuResultcolumnPage6}?'・':(${line eq 0 and column eq 0}?'w':' '))|"></div>
+                <div th:case="*"> </div>
+            </th:block>
+        </td>
+        <td>
+
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
     </tr>
     <tr>
         <th>1</th>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td>
+        </td>
+        <td>
+
+        </td>
     </tr>
     <tr>
         <th>2</th>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
     </tr>
     <tr>
         <th>3</th>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
     </tr>
-    <th>4</th>
-    <td> </td>
-    <td> </td>
-    <td> </td>
-    <td> </td>
-    <td> </td>
-    </tr>
+        <th>4</th>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        </tr>
 </table>
 
 <p>CPUの陣地</p>
@@ -74,44 +111,73 @@
     </tr>
     <tr>
         <th>0</th>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td>
+            <th:block th:switch="true">
+                <div th:case="|${cRL eq linIn and cRC eq columnIn}?'×':(${cRL ne lineIn or cRC ne columnIn}?'・':' ')|"></div>
+                <div th:case="|${cRL eq lineL and cRC eq columnC}?'×':(${cRL ne lineL and cRC ne columnC}?'・':' ')|"></div>
+                <div th:case="*"> </div>
+            </th:block>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+            </td>
+        <td>
+        </td>
     </tr>
     <tr>
         <th>1</th>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
     </tr>
     <tr>
         <th>2</th>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
     </tr>
     <tr>
         <th>3</th>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
     </tr>
-    <th>4</th>
-    <td> </td>
-    <td> </td>
-    <td> </td>
-    <td> </td>
-    <td> </td>
+        <th>4</th>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
     </tr>
 </table>
-
 </body>
 </html>

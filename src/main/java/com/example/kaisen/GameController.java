@@ -17,32 +17,53 @@ public class GameController {
     @Autowired
     private KaisenService service;
 
-    @GetMapping("Page1")
+    /**
+     * クラス分ける
+     */
+    //Playerの座標
+    String[][] playerBlocks = new String[5][5];
+    //CPUの座標
+    String[][] cpuBlocks = new String[5][5];
+
+
+    @GetMapping("GameStartPage")
     public String getPage1(Model model) {
-        return "Page1";
+        return "GameStartPage";
     }
 
-    //Page1のPost
-    @PostMapping("Page2")
-    public String Page1(int line, int column, Model model) {
+    //GameStartPageのPost
+    @PostMapping("BattlePage")
+    public String battle(String line, String column, Model model) {
+        //GameStartPageでPlayerがいれた座標
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 5; x++) {
+                if(line.equals(String.valueOf(y))&&column.equals(String.valueOf(x))) {
+                    playerBlocks[y][x] = "W";
+                }else{
+                    //ToDo
+                }
+            }
+        }
+
+        model.addAttribute("blocks",playerBlocks);
+
         model.addAttribute("line", line);
         model.addAttribute("column", column);
-        //resultに入力した自分の座標をいれてモデルに追加
-        var myResult = service.myRegister(line, column); //プレイヤーの座標
 
         var cpuResultline = service.cpuRegisterline();//cpuの行座標
         System.out.println(cpuResultline);
         var cpuResultcolumn = service.cpuRegistercolumn();//cpuの列座標
         System.out.println(cpuResultcolumn);
+
         System.out.println("利用中のブラウザ識別番号:" + httpSession.getId());//httpsessionのIdを表示
         httpSession.setAttribute("line", line);
         httpSession.setAttribute("column", column);
         httpSession.setAttribute("cpuResultline",cpuResultline);
         httpSession.setAttribute("cpuResultcolumn",cpuResultcolumn);
-        return "Page2";
+        return "BattlePage";
     }
 
-    @GetMapping("Page2")
+    @GetMapping("BattlePage")
     public String Page2(Model model) {
         //Page1のwをセッションで維持
         System.out.println("利用中のブラウザ識別番号:" + httpSession.getId());//httpsessionのIdを表示
@@ -50,7 +71,7 @@ public class GameController {
         var column = (Integer) httpSession.getAttribute("column");
         model.addAttribute("line", line);
         model.addAttribute("column", column);
-        return "Page2";
+        return "BattlePage";
     }
 
     //Page2のポスト
@@ -60,15 +81,16 @@ public class GameController {
         //Page1でいれたプレイヤーの座標　W
         var line = (Integer) httpSession.getAttribute("line");
         var column = (Integer) httpSession.getAttribute("column");
-       // model.addAttribute("line", line);//W
-       // model.addAttribute("column", column);//W
+        model.addAttribute("line",line);
+        model.addAttribute("column",column);
+
         //Page1でランダムでできたcpuの座標
         var cRL = (Integer)httpSession.getAttribute("cpuResultline");
         var cRC = (Integer)httpSession.getAttribute("cpuResultcolumn");
         System.out.println("Page1でランダムでできたcpuの縦座標"+cRL);
         System.out.println("Page1でランダムでできたcpuの列座標"+cRC);
-        //model.addAttribute(cRL);
-        //model.addAttribute(cRC);
+        model.addAttribute("cRL",cRL);
+        model.addAttribute("cRC",cRC);
 
         //Page2でのプレイヤーの攻撃
        httpSession.setAttribute("lineIn", lineIn);
@@ -100,19 +122,7 @@ public class GameController {
     //Page3
     @GetMapping("Page3")
     public String PageX(Model model){
-        //Wと・　プレイヤー勝ったやつモデルに追加getsession×
         System.out.println("利用中のブラウザ識別番号:" + httpSession.getId());//httpsessionのIdを表示
-        //Page2でのプレイヤーの攻撃座標
-        var lineIn = (Integer) httpSession.getAttribute("lineIn");
-        var columnIn = (Integer) httpSession.getAttribute("columnIn");
-        model.addAttribute("lineIn", lineIn);
-        model.addAttribute("columnIn", columnIn);
-
-        //Page1でランダムでできたcpuの座標
-        var cRL = (Integer)httpSession.getAttribute("cpuResultline");
-        var cRC = (Integer)httpSession.getAttribute("cpuResultcolumn");
-        model.addAttribute(cRL);
-        model.addAttribute(cRC);
 
         //Page1でいれたプレイヤーの座標　W
         var line = (Integer) httpSession.getAttribute("line");
@@ -120,50 +130,161 @@ public class GameController {
         model.addAttribute("line", line);//W
         model.addAttribute("column", column);//W
 
+        //Page1でランダムでできたcpuの座標
+        var cRL = (Integer)httpSession.getAttribute("cpuResultline");
+        var cRC = (Integer)httpSession.getAttribute("cpuResultcolumn");
+        model.addAttribute("cRL",cRL);
+        model.addAttribute("cRL",cRC);
+
+        //Page2でのプレイヤーの攻撃座標
+        var lineIn = (Integer) httpSession.getAttribute("lineIn");
+        var columnIn = (Integer) httpSession.getAttribute("columnIn");
+        model.addAttribute("lineIn", lineIn);
+        model.addAttribute("columnIn", columnIn);
+
         //Page2のcpuの攻撃座標
         var cRRL = (Integer)httpSession.getAttribute("cpuResultlinePage2");
         var cRRC = (Integer)httpSession.getAttribute("cpuResultlinePage2");
         model.addAttribute("cRRLParse",cRRL);
         model.addAttribute("cRRCParse",cRRC);
 
+        //Page6でのPlayerの攻撃座標
+        var lineL = (Integer) httpSession.getAttribute("lineL");
+        var columnC = (Integer) httpSession.getAttribute("columnC");
+        model.addAttribute("lineL",lineL);
+        model.addAttribute("columnC",columnC);
+
+        //Page6でのcpuの攻撃座標
+        var cpuResultlinePage6 = (Integer) httpSession.getAttribute("cpuResultlinePage6");
+        var cpuResultcolumnPage6 = (Integer) httpSession.getAttribute("cpuResultcolumnPage6");
+        model.addAttribute("cpuResultlinePage6",cpuResultlinePage6);
+        model.addAttribute("cpuResultcolumnPge6",cpuResultcolumnPage6);
+
         return "Page3";
     }
     //Page4
     @GetMapping("Page4")
     public String Page3(Model model){
-        //Wと・　cpuの勝ちをモデルに追加getsesion×
+
+        //Page1でいれたプレイヤーの座標　W
+        var line = (Integer) httpSession.getAttribute("line");
+        var column = (Integer) httpSession.getAttribute("column");
+        model.addAttribute("line", line);//W
+        model.addAttribute("column", column);//W
+
+        //Page1でランダムでできたcpuの座標
+        var cRL = (Integer)httpSession.getAttribute("cpuResultline");
+        var cRC = (Integer)httpSession.getAttribute("cpuResultcolumn");
+        model.addAttribute("cRL",cRL);
+        model.addAttribute("cRC",cRC);
 
         //Page2でのプレイヤーの攻撃座標
         var lineIn = (Integer) httpSession.getAttribute("lineIn");
         var columnIn = (Integer) httpSession.getAttribute("columnIn");
         model.addAttribute("lineIn", lineIn);
         model.addAttribute("columnIn", columnIn);
+
+        //Page2のcpuの攻撃座標
+        var cRRL = (Integer)httpSession.getAttribute("cpuResultlinePage2");
+        var cRRC = (Integer)httpSession.getAttribute("cpuResultlinePage2");
+        model.addAttribute("cRRLParse",cRRL);
+        model.addAttribute("cRRCParse",cRRC);
+
+        //Page6でのPlayerの攻撃座標
+        var lineL = (Integer) httpSession.getAttribute("lineL");
+        var columnC = (Integer) httpSession.getAttribute("columnC");
+        model.addAttribute("lineL",lineL);
+        model.addAttribute("columnC",columnC);
+
+        //Page6でのcpuの攻撃座標
+        var cpuResultlinePage6 = (Integer) httpSession.getAttribute("cpuResultlinePage6");
+        var cpuResultcolumnPage6 = (Integer) httpSession.getAttribute("cpuResultcolumnPage6");
+        model.addAttribute("cpuResultlinePage6",cpuResultlinePage6);
+        model.addAttribute("cpuResultcolumnPge6",cpuResultcolumnPage6);
 
         return "Page4";
     }
     //Page5
     @GetMapping("Page5")
     public String Page4(Model model){
-        //Wと・×両方にgetsession
+
+        //Page1でいれたプレイヤーの座標　W
+        var line = (Integer) httpSession.getAttribute("line");
+        var column = (Integer) httpSession.getAttribute("column");
+        model.addAttribute("line", line);//W
+        model.addAttribute("column", column);//W
+
+        //Page1でランダムでできたcpuの座標
+        var cRL = (Integer)httpSession.getAttribute("cpuResultline");
+        var cRC = (Integer)httpSession.getAttribute("cpuResultcolumn");
+        model.addAttribute("cRL",cRL);
+        model.addAttribute("cRC",cRC);
 
         //Page2でのプレイヤーの攻撃座標
         var lineIn = (Integer) httpSession.getAttribute("lineIn");
         var columnIn = (Integer) httpSession.getAttribute("columnIn");
         model.addAttribute("lineIn", lineIn);
         model.addAttribute("columnIn", columnIn);
+
+        //Page2のcpuの攻撃座標
+        var cRRL = (Integer)httpSession.getAttribute("cpuResultlinePage2");
+        var cRRC = (Integer)httpSession.getAttribute("cpuResultlinePage2");
+        model.addAttribute("cRRLParse",cRRL);
+        model.addAttribute("cRRCParse",cRRC);
+
+        //Page6でのPlayerの攻撃座標
+        var lineL = (Integer) httpSession.getAttribute("lineL");
+        var columnC = (Integer) httpSession.getAttribute("columnC");
+        model.addAttribute("lineL",lineL);
+        model.addAttribute("columnC",columnC);
+
+        //Page6でのcpuの攻撃座標
+        var cpuResultlinePage6 = (Integer) httpSession.getAttribute("cpuResultlinePage6");
+        var cpuResultcolumnPage6 = (Integer) httpSession.getAttribute("cpuResultcolumnPage6");
+        model.addAttribute("cpuResultlinePage6",cpuResultlinePage6);
+        model.addAttribute("cpuResultcolumnPge6",cpuResultcolumnPage6);
 
         return "Page5";
     }
     //Page6
     @GetMapping("Page6")
-    public String Page6(int x,Model model){
-        //W ・をgetsession
+    public String Page6(Model model){
+
+        //Page1でいれたプレイヤーの座標　W
+        var line = (Integer) httpSession.getAttribute("line");
+        var column = (Integer) httpSession.getAttribute("column");
+        model.addAttribute("line", line);//W
+        model.addAttribute("column", column);//W
+
+        //Page1でランダムでできたcpuの座標
+        var cRL = (Integer)httpSession.getAttribute("cpuResultline");
+        var cRC = (Integer)httpSession.getAttribute("cpuResultcolumn");
+        model.addAttribute("cRL",cRL);
+        model.addAttribute("cRC",cRC);
 
         //Page2でのプレイヤーの攻撃座標
         var lineIn = (Integer) httpSession.getAttribute("lineIn");
         var columnIn = (Integer) httpSession.getAttribute("columnIn");
         model.addAttribute("lineIn", lineIn);
         model.addAttribute("columnIn", columnIn);
+
+        //Page2のcpuの攻撃座標
+        var cRRL = (Integer)httpSession.getAttribute("cpuResultlinePage2");
+        var cRRC = (Integer)httpSession.getAttribute("cpuResultlinePage2");
+        model.addAttribute("cRRLParse",cRRL);
+        model.addAttribute("cRRCParse",cRRC);
+
+        //Page6でのPlayerの攻撃座標
+        var lineL = (Integer) httpSession.getAttribute("lineL");
+        var columnC = (Integer) httpSession.getAttribute("columnC");
+        model.addAttribute("lineL",lineL);
+        model.addAttribute("columnC",columnC);
+
+        //Page6でのcpuの攻撃座標
+        var cpuResultlinePage6 = (Integer) httpSession.getAttribute("cpuResultlinePage6");
+        var cpuResultcolumnPage6 = (Integer) httpSession.getAttribute("cpuResultcolumnPage6");
+        model.addAttribute("cpuResultlinePage6",cpuResultlinePage6);
+        model.addAttribute("cpuResultcolumnPge6",cpuResultcolumnPage6);
 
         return "Page6";
     }
@@ -174,10 +295,30 @@ public class GameController {
         //Page1のプレイヤーの座標
         var line = (Integer) httpSession.getAttribute("line");
         var column = (Integer) httpSession.getAttribute("column");
+        model.addAttribute("line",line);
+        model.addAttribute("column",column);
 
         //Page1でランダムでできたcpuの座標
         var cRL = (Integer)httpSession.getAttribute("cpuResultline");
         var cRC = (Integer)httpSession.getAttribute("cpuResultcolumn");
+        model.addAttribute("cRL",cRL);
+        model.addAttribute("cRC",cRC);
+
+        //Page2でのプレイヤーの攻撃座標
+        var lineIn = (Integer) httpSession.getAttribute("lineIn");
+        var columnIn = (Integer) httpSession.getAttribute("columnIn");
+        model.addAttribute("lineIn", lineIn);
+        model.addAttribute("columnIn", columnIn);
+
+        //Page2のcpuの攻撃座標
+        var cRRL = (Integer)httpSession.getAttribute("cpuResultlinePage2");
+        var cRRC = (Integer)httpSession.getAttribute("cpuResultlinePage2");
+        model.addAttribute("cRRLParse",cRRL);
+        model.addAttribute("cRRCParse",cRRC);
+
+        //Page6のPlayerの攻撃座標
+        httpSession.setAttribute("lineL",lineL);
+        httpSession.setAttribute("columnC",columnC);
 
         //Page6のcpuの攻撃座標
         var cpuResultlinePage6 = service.cpuRegistResultline();//cpuの行座標
@@ -201,7 +342,7 @@ public class GameController {
             //攻撃を続ける
             return "Page6";
         }
-    }
+    };
 
     @GetMapping("Page7")
     public String Page7(Model model){
