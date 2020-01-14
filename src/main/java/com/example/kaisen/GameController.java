@@ -50,7 +50,7 @@ public class GameController {
         var cpuResultline = service.cpuRegisterline();//cpuの行座標
         System.out.println(cpuResultline);
         var cpuResultcolumn = service.cpuRegistercolumn();//cpuの列座標
-        System.out.println(cpuResultcolumn);
+
 
         System.out.println("利用中のブラウザ識別番号:" + httpSession.getId());//httpsessionのIdを表示
         httpSession.setAttribute("line", line);
