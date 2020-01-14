@@ -52,6 +52,7 @@ public class GameController {
         var cpuResultcolumn = service.cpuRegistercolumn();//cpuの列座標
 
 
+        //refactor2
         System.out.println("利用中のブラウザ識別番号:" + httpSession.getId());//httpsessionのIdを表示
         httpSession.setAttribute("line", line);
         httpSession.setAttribute("column", column);
