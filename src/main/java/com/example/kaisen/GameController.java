@@ -47,8 +47,8 @@ public class GameController {
 
         model.addAttribute("blocks",playerBlocks);
 
+        //refacrtor
         var cpuResultline = service.cpuRegisterline();//cpuの行座標
-        System.out.println(cpuResultline);
         var cpuResultcolumn = service.cpuRegistercolumn();//cpuの列座標
 
 
