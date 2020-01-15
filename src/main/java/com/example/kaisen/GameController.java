@@ -1,6 +1,6 @@
 package com.example.kaisen;
 
-import com.example.kaisen.model.KaisenService;
+import com.example.kaisen.model.service.KaisenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 @Controller
 public class GameController {
@@ -27,7 +28,14 @@ public class GameController {
 
 
     @GetMapping("GameStartPage")
-    public String getPage1(Model model) {
+    public String gameStart(Model model) {
+        //Gameリスタート時に座標のWが残らないようにする。
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 5; x++) {
+                playerBlocks[y][x] = "";
+                cpuBlocks[y][x] = "";
+            }
+        }
         return "GameStartPage";
     }
 
@@ -37,6 +45,7 @@ public class GameController {
         //GameStartPageでPlayerがいれた座標
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 5; x++) {
+                //入力した縦と横の数字と座標の比較文字列なのでString.valueof()
                 if(line.equals(String.valueOf(y))&&column.equals(String.valueOf(x))) {
                     playerBlocks[y][x] = "W";
                 }else{
@@ -45,11 +54,28 @@ public class GameController {
             }
         }
 
-        model.addAttribute("blocks",playerBlocks);
+        model.addAttribute("playerBlocks",playerBlocks);
 
-        var cpuResultline = service.cpuRegisterline();//cpuの行座標
+        Random rand = new Random();
+        int cpuLine = rand.nextInt(5);
+        int cpuColumn = rand.nextInt(5);
+
+
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 5; x++) {
+                //ランダムで得たCPUの座標をもとの座標と比較する
+            if(String.valueOf(cpuLine).equals(String.valueOf(y))&&
+                String.valueOf(cpuColumn).equals(String.valueOf(x))){
+                cpuBlocks[y][x] = "";//表示しない
+            }
+            }
+        }
+        model.addAttribute("cpuBlocks",cpuBlocks);
+
+        /*
+        var cpuResultline = service.cpuLine();//cpuの行座標
         System.out.println(cpuResultline);
-        var cpuResultcolumn = service.cpuRegistercolumn();//cpuの列座標
+        var cpuResultcolumn = service.cpuColumn();//cpuの列座標
         System.out.println(cpuResultcolumn);
 
         System.out.println("利用中のブラウザ識別番号:" + httpSession.getId());//httpsessionのIdを表示
@@ -57,10 +83,11 @@ public class GameController {
         httpSession.setAttribute("column", column);
         httpSession.setAttribute("cpuResultline",cpuResultline);
         httpSession.setAttribute("cpuResultcolumn",cpuResultcolumn);
+        */
         return "BattlePage";
     }
 
-    @GetMapping("BattlePage")
+  /*  @GetMapping("BattlePage")
     public String Page2(Model model) {
         //Page1のwをセッションで維持
         System.out.println("利用中のブラウザ識別番号:" + httpSession.getId());//httpsessionのIdを表示
@@ -70,12 +97,21 @@ public class GameController {
         model.addAttribute("column", column);
         return "BattlePage";
     }
+    */
 
-    //Page2のポスト
-    //引数はPage2のプレイヤーの攻撃、Page1のCPUの座標、Page1のプレイヤーの座標、
-    @PostMapping("Page3")
-    public String PageX(int lineIn, int columnIn,  Model model) {
+    //BattlePageのポスト
+    //引数はBattlePageのプレイヤーの攻撃、GameStartPageのCPUの座標、GameStartPageのプレイヤーの座標、
+    //続けるから仕様の画面6部分
+    @PostMapping("JudgePage")
+    public String judge(int attackLine, int attackColumn,  Model model) {
         //Page1でいれたプレイヤーの座標　W
+
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 5; x++) {
+            }
+        }
+
+
         var line = (Integer) httpSession.getAttribute("line");
         var column = (Integer) httpSession.getAttribute("column");
         model.addAttribute("line",line);
@@ -90,11 +126,11 @@ public class GameController {
         model.addAttribute("cRC",cRC);
 
         //Page2でのプレイヤーの攻撃
-       httpSession.setAttribute("lineIn", lineIn);
-       httpSession.setAttribute("columnIn", columnIn);
+       //httpSession.setAttribute("lineIn", lineIn);
+       //httpSession.setAttribute("columnIn", columnIn);
 
         //Page2でのcpuの攻撃
-        var cpuResultlinePage2 = service.cpuRegistResultline();//cpuの行座標
+       /* var cpuResultlinePage2 = service.cpuRegistResultline();//cpuの行座標
         System.out.println(cpuResultlinePage2);
         var cpuResultlcolumnPage2 = service.cpuRegistResultcolumn();//cpuの列座標
         System.out.println(cpuResultlcolumnPage2);
@@ -115,6 +151,8 @@ public class GameController {
             //攻撃を続ける
             return "Page6";
         }
+        */
+       return "";
     }
     //Page3
     @GetMapping("Page3")
@@ -318,7 +356,7 @@ public class GameController {
         httpSession.setAttribute("columnC",columnC);
 
         //Page6のcpuの攻撃座標
-        var cpuResultlinePage6 = service.cpuRegistResultline();//cpuの行座標
+      /*  var cpuResultlinePage6 = service.cpuRegistResultline();//cpuの行座標
         System.out.println(cpuResultlinePage6);
         var cpuResultlcolumnPage6 = service.cpuRegistResultcolumn();//cpuの列座標
         System.out.println(cpuResultlcolumnPage6);
@@ -339,6 +377,8 @@ public class GameController {
             //攻撃を続ける
             return "Page6";
         }
+        */
+      return "";
     };
 
     @GetMapping("Page7")

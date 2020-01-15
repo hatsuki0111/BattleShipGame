@@ -17,8 +17,8 @@
 <body>
 <p>お互いの準備ができました！攻撃しましょう！</p><br>
 <form action='Page3' method='post'>
-    縦(0～4)<input type='text' name='lineIn'><br />
-    横(0～4)<input type='text' name='columnIn'><br />
+    縦(0～4)<input type='text' name='attackLine'><br />
+    横(0～4)<input type='text' name='attackColumn'><br />
     <button type='submit'>送信</button>
 </form>
 <p>あなたの陣地</p>
@@ -34,11 +34,11 @@
     </tr>
     <tr>
     <th>0</th>
-        <td th:text="${blocks[0][0]}"></td>
-        <td th:text="${blocks[0][1]}"></td>
-        <td th:text="${blocks[0][2]}"></td>
-        <td th:text="${blocks[0][3]}"></td>
-        <td th:text="${blocks[0][4]}"></td>
+        <td th:text="${playerBlocks[0][0]}"></td>
+        <td th:text="${playerBlocks[0][1]}"></td>
+        <td th:text="${playerBlocks[0][2]}"></td>
+        <td th:text="${playerBlocks[0][3]}"></td>
+        <td th:text="${playerBlocks[0][4]}"></td>
     </tr>
     <tr>
     <th>1</th>
@@ -84,11 +84,11 @@
     </tr>
     <tr>
         <th>0</th>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td th:text="${cpuBlocks[0][0]}"> </td>
+        <td th:text="${cpuBlocks[0][1]}"> </td>
+        <td th:text="${cpuBlocks[0][2]}"> </td>
+        <td th:text="${cpuBlocks[0][3]}"> </td>
+        <td th:text="${cpuBlocks[0][4]}"> </td>
     </tr>
     <tr>
         <th>1</th>
