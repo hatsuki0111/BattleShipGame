@@ -19,7 +19,7 @@ public class GameController {
     private KaisenService service;
 
     /**
-     * クラス分ける
+     * クラス分ける?
      */
     //Playerの座標
     String[][] playerBlocks = new String[5][5];
