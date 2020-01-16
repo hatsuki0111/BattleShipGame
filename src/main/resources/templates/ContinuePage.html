@@ -3,26 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        img{
-            width: 10px;
-            height: 10px;
-        }
-        .imgsize{
-            width: 30px;
-            height: 30px;
-        }
-    </style>
 </head>
 <body>
-<p>お互いの準備ができました！攻撃しましょう！</p><br>
+<p>お互いの攻撃が外れました！もう一度攻撃しましょう！</p><br>
 <form action='ContinuePage' method='post'>
     縦(0～4)<input type='text' name='playerAttackLine'><br />
     横(0～4)<input type='text' name='playerAttackColumn'><br />
     <button type='submit'>送信</button>
 </form>
 <p>あなたの陣地</p>
-<img src="./ship.png" class="imgsize">
 <table border="1">
     <tr>
         <th> </th>
@@ -64,12 +53,12 @@
         <td th:text="${playerBlocks[3][3]}"></td>
         <td th:text="${playerBlocks[3][4]}"></td>
     </tr>
-    <th>4</th>
-    <td th:text="${playerBlocks[4][0]}"></td>
-    <td th:text="${playerBlocks[4][1]}"></td>
-    <td th:text="${playerBlocks[4][2]}"></td>
-    <td th:text="${playerBlocks[4][3]}"></td>
-    <td th:text="${playerBlocks[4][4]}"></td>
+        <th>4</th>
+        <td th:text="${playerBlocks[4][0]}"></td>
+        <td th:text="${playerBlocks[4][1]}"></td>
+        <td th:text="${playerBlocks[4][2]}"></td>
+        <td th:text="${playerBlocks[4][3]}"></td>
+        <td th:text="${playerBlocks[4][4]}"></td>
     </tr>
 </table>
 
@@ -115,12 +104,12 @@
         <td th:text="${cpuBlocks[3][3]}"></td>
         <td th:text="${cpuBlocks[3][4]}"></td>
     </tr>
-    <th>4</th>
-    <td th:text="${cpuBlocks[4][0]}"></td>
-    <td th:text="${cpuBlocks[4][1]}"></td>
-    <td th:text="${cpuBlocks[4][2]}"></td>
-    <td th:text="${cpuBlocks[4][3]}"></td>
-    <td th:text="${cpuBlocks[4][4]}"></td>
+        <th>4</th>
+        <td th:text="${cpuBlocks[4][0]}"></td>
+        <td th:text="${cpuBlocks[4][1]}"></td>
+        <td th:text="${cpuBlocks[4][2]}"></td>
+        <td th:text="${cpuBlocks[4][3]}"></td>
+        <td th:text="${cpuBlocks[4][4]}"></td>
     </tr>
 </table>
 </body>
