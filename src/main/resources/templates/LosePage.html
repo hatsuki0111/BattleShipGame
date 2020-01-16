@@ -292,22 +292,11 @@
     </tr>
     <tr>
         <th>0</th>
-        <td>
-            <th:block th:switch="true">
-                <p th:case="${'line eq 0 and column eq 0' and 'line eq cRRLParse and column eq cRRCParse'}?'×':(${'line eq 0 and column eq 0' and 'line neq cRRLParse or column neq cRRCParse'}?'・':(${line eq 0 and column eq 0}?'w':' '))"></p>
-                <p th:case="${}?'':''"></p>
-                <p th:case="*"> </p>
-            </th:block>
-        </td>
-        <td>
-
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
+        <td th:text="${playerBlocks[0][0]}"></td>
+        <td th:text="${playerBlocks[0][1]}"></td>
+        <td th:text="${playerBlocks[0][2]}"></td>
+        <td th:text="${playerBlocks[0][3]}"></td>
+        <td th:text="${playerBlocks[0][4]}"></td>
     </tr>
     <tr>
         <th>1</th>
@@ -380,23 +369,11 @@
     </tr>
     <tr>
         <th>0</th>
-        <td>
-            <th:block th:switch="true">
-                <p th:case="${cRL neq lineIn or cRC neq columnIn}">・</p>
-                <p th:case="${cRL eq lineIn and cRC eq columnIn}">×</p>
-                <p th:case="${cRL neq lineL or cRC neq columnC}">・</p>
-                <p th:case="${cRL eq lineL and cRC eq columnC}">×</p>
-                <p th:case="*"> </p>
-            </th:block>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
+        <td th:text="${cpuBlocks[0][0]}"></td>
+        <td th:text="${cpuBlocks[0][1]}"></td>
+        <td th:text="${cpuBlocks[0][2]}"></td>
+        <td th:text="${cpuBlocks[0][3]}"></td>
+        <td th:text="${cpuBlocks[0][4]}"></td>
     </tr>
     <tr>
         <th>1</th>

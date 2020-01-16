@@ -5,12 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<p>お互いの攻撃が外れました！もう一度攻撃しましょう！</p><br>
-<form action='Continue' method='post'>
-    縦(0～4)<input type='text' name='lineL'><br />
-    横(0～4)<input type='text' name='columnC'><br />
-    <button type='submit'>送信</button>
-</form>
+<p>お互いの攻撃が命中しました!引き分けです!</p><br>
+<a href="Page7">戦績へ</a>
+<p>あなたの陣地</p>
 <p>あなたの陣地</p>
 <table border="1">
     <tr>
@@ -23,22 +20,11 @@
     </tr>
     <tr>
         <th>0</th>
-        <td>
-            <th:block th:switch="true">
-                <div th:case="|${line eq 0 and column eq 0} and ${line eq cRRLParse and column eq cRRCParse}?'×':(${line eq 0 and column eq 0} and ${line ne cRRLParse or column ne cRRCParse}?'・':(${line eq 0 and column eq 0}?'w':' '))|"></div>
-                <div th:case="|${line eq 0 and column eq 0} and ${line eq cpuResultcolumnPage6 and column eq cpuResultcolumnPage6}?'×':(${line eq 0 and column eq 0} and ${line ne cpuResultlinePage6 and column ne cpuResultcolumnPage6}?'・':(${line eq 0 and column eq 0}?'w':' '))|"></div>
-                <div th:case="*"> </div>
-            </th:block>
-        </td>
-        <td>
-
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
+        <td th:text="${playerBlocks[0][0]}"></td>
+        <td th:text="${playerBlocks[0][1]}"></td>
+        <td th:text="${playerBlocks[0][2]}"></td>
+        <td th:text="${playerBlocks[0][3]}"></td>
+        <td th:text="${playerBlocks[0][4]}"></td>
     </tr>
     <tr>
         <th>1</th>
@@ -83,20 +69,20 @@
         <td>
         </td>
     </tr>
-        <th>4</th>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        </tr>
+    <th>4</th>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    </tr>
 </table>
 
 <p>CPUの陣地</p>
@@ -111,21 +97,11 @@
     </tr>
     <tr>
         <th>0</th>
-        <td>
-            <th:block th:switch="true">
-                <div th:case="|${cRL eq linIn and cRC eq columnIn}?'×':(${cRL ne lineIn or cRC ne columnIn}?'・':' ')|"></div>
-                <div th:case="|${cRL eq lineL and cRC eq columnC}?'×':(${cRL ne lineL and cRC ne columnC}?'・':' ')|"></div>
-                <div th:case="*"> </div>
-            </th:block>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-            </td>
-        <td>
-        </td>
+        <td th:text="${cpuBlocks[0][0]}"></td>
+        <td th:text="${cpuBlocks[0][1]}"></td>
+        <td th:text="${cpuBlocks[0][2]}"></td>
+        <td th:text="${cpuBlocks[0][3]}"></td>
+        <td th:text="${cpuBlocks[0][4]}"></td>
     </tr>
     <tr>
         <th>1</th>
@@ -177,7 +153,7 @@
         </td>
         <td>
         </td>
-    </tr>
+        </tr>
 </table>
 </body>
 </html>

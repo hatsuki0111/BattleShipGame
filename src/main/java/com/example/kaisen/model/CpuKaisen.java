@@ -6,11 +6,12 @@ public class CpuKaisen {
 
     Random random = new Random();
 
-    public int cpuLine() {
-        return random.nextInt(5);
+    public int cpuLine(int cpuLine) {
+        return cpuLine;
     }
-    public int cpuColumn(){
-        return random.nextInt(5);
+    public int cpuColumn(int cpuColumn){
+
+        return cpuColumn;
     }
     public int cpuResultLine(){
         return random.nextInt(5);
