@@ -8,7 +8,6 @@
 <p>お互いの攻撃が命中しました!引き分けです!</p><br>
 <a href="Page7">戦績へ</a>
 <p>あなたの陣地</p>
-<p>あなたの陣地</p>
 <table border="1">
     <tr>
         <th> </th>
@@ -28,60 +27,34 @@
     </tr>
     <tr>
         <th>1</th>
-        <td>
-
-        </td>
-        <td>
-
-        </td>
-        <td>
-
-        </td>
-        <td>
-        </td>
-        <td>
-
-        </td>
+        <td th:text="${playerBlocks[1][0]}"></td>
+        <td th:text="${playerBlocks[1][1]}"></td>
+        <td th:text="${playerBlocks[1][2]}"></td>
+        <td th:text="${playerBlocks[1][3]}"></td>
+        <td th:text="${playerBlocks[1][4]}"></td>
     </tr>
     <tr>
         <th>2</th>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
+        <td th:text="${playerBlocks[2][0]}"></td>
+        <td th:text="${playerBlocks[2][1]}"></td>
+        <td th:text="${playerBlocks[2][2]}"></td>
+        <td th:text="${playerBlocks[2][3]}"></td>
+        <td th:text="${playerBlocks[2][4]}"></td>
     </tr>
     <tr>
         <th>3</th>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
+        <td th:text="${playerBlocks[3][0]}"></td>
+        <td th:text="${playerBlocks[3][1]}"></td>
+        <td th:text="${playerBlocks[3][2]}"></td>
+        <td th:text="${playerBlocks[3][3]}"></td>
+        <td th:text="${playerBlocks[3][4]}"></td>
     </tr>
     <th>4</th>
-    <td>
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
+    <td th:text="${playerBlocks[4][0]}"></td>
+    <td th:text="${playerBlocks[4][1]}"></td>
+    <td th:text="${playerBlocks[4][2]}"></td>
+    <td th:text="${playerBlocks[4][3]}"></td>
+    <td th:text="${playerBlocks[4][4]}"></td>
     </tr>
 </table>
 
@@ -105,55 +78,35 @@
     </tr>
     <tr>
         <th>1</th>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
+        <td th:text="${cpuBlocks[1][0]}"></td>
+        <td th:text="${cpuBlocks[1][1]}"></td>
+        <td th:text="${cpuBlocks[1][2]}"></td>
+        <td th:text="${cpuBlocks[1][3]}"></td>
+        <td th:text="${cpuBlocks[1][4]}"></td>
     </tr>
     <tr>
         <th>2</th>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
+        <td th:text="${cpuBlocks[2][0]}"></td>
+        <td th:text="${cpuBlocks[2][1]}"></td>
+        <td th:text="${cpuBlocks[2][2]}"></td>
+        <td th:text="${cpuBlocks[2][3]}"></td>
+        <td th:text="${cpuBlocks[2][4]}"></td>
     </tr>
     <tr>
         <th>3</th>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
+        <td th:text="${cpuBlocks[3][0]}"></td>
+        <td th:text="${cpuBlocks[3][1]}"></td>
+        <td th:text="${cpuBlocks[3][2]}"></td>
+        <td th:text="${cpuBlocks[3][3]}"></td>
+        <td th:text="${cpuBlocks[3][4]}"></td>
     </tr>
-        <th>4</th>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        </tr>
+    <th>4</th>
+    <td th:text="${cpuBlocks[4][0]}"></td>
+    <td th:text="${cpuBlocks[4][1]}"></td>
+    <td th:text="${cpuBlocks[4][2]}"></td>
+    <td th:text="${cpuBlocks[4][3]}"></td>
+    <td th:text="${cpuBlocks[4][4]}"></td>
+    </tr>
 </table>
 </body>
 </html>
