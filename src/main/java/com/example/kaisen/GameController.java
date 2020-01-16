@@ -75,7 +75,7 @@ public class GameController {
         model.addAttribute("cpuBlocks", cpuBlocks);
         //ServiceクラスにPlayerとCPUの座標をセットする
         service.setBlocks(playerLine, playerColumn, cpuLine, cpuColumn);
-
+    
         return "BattlePage";
     }
 
