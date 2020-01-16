@@ -48,8 +48,6 @@ public class GameController {
                 //入力した縦と横の数字と座標の比較文字列なのでString.valueof()
                 if (playerLine.equals(String.valueOf(y)) && playerColumn.equals(String.valueOf(x))) {
                     playerBlocks[y][x] = "W";
-                } else {
-                    //ToDo
                 }
             }
         }
