@@ -94,7 +94,9 @@ public class GameController {
          *DBに何手で勝敗がついたかを残すための変数(score)
          *ゲームが何回目かはauto_incrimentでしのぐ
          */
-        int resultPageNumber = 0, winnerandloser = 0, count = 0;
+        int resultPageNumber = 0, winnerandloser = 0, count = 1;
+
+        //ResultPageで直前の結果を表示するために使用
 
         //Playerの攻撃判定をserviceで行うために、Playerの攻撃座標を引数に成功ならtrueを返す
         Boolean plAttackJudge = service.plAttackJudge(playerAttackLine, playerAttackColumn);
@@ -171,6 +173,7 @@ public class GameController {
         if(winnerandloser==1) {
             resultHistoryService.register(resultPageNumber, winnerandloser, count);
         }
+        resultHistoryService.setKekka(resultPageNumber);
         //ページ遷移
         switch (resultPageNumber){
             case 1:
@@ -182,6 +185,14 @@ public class GameController {
             default:
                 return "ContinuePage";
         }
+    }
+    @GetMapping("ResultPage")
+    public String resultGet(Model model){
+        var resultHistories = resultHistoryService.findAll();
+        model.addAttribute("resultHistories", resultHistories);
+        var kekka = resultHistoryService.kekka();
+        model.addAttribute("kekka",kekka);
+        return "ResultPage";
     }
 }
 

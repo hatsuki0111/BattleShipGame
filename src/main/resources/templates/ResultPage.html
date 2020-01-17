@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<p>あなたの攻撃が命中しました!あなたの勝ちです1</p>
+<p>あなたの攻撃が命中しました!あなたの[[${kekka}]]です！</p>
 <a href="GameStartPage">ゲーム再開</a>
-
+<ul th:each="ri:${resultHistories}">
+    <li>[[${gamenumber}]]回目----[[${ri.winnerandloser}]]が[[${ri.count}]]手目で[[${ri.result}]]</li>
+</ul>
 </body>
 </html>
