@@ -9,7 +9,7 @@ public class ResultHistory {
     private String winnerandloser;//勝者、敗者
     private int count;//何手目
     private String result;//勝敗
-    private int gamenumber;//Game   のplay回数
+    private int gamenumber;//Gameのplay回数
 
 
     public ResultHistory(int gamenumber, String winnerandloser, int count, String result){

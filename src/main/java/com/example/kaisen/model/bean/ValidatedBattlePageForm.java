@@ -1,43 +1,41 @@
 package com.example.kaisen.model.bean;
 
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.validation.constraints.*;
 
 public class ValidatedBattlePageForm {
+
     /**
-     * @Notnullは入力値になにもないとき
+     * @Notnullは入力値になにもないとき String型でないとエラーがブラウザにそのまま表示される
      * @Max @@Minは0~4以外はだめ
      *
      * tips @Patternは正規表現 @NotBlankはhibernateで6から非推奨、versionとかも地雷多いのでいれたくない
      */
 
-    @NotNull(message = "0~4の数字を入力してください")
+    //groupsでvalidationの順番を制御する
+    @NotNull
     @Min(value=0, message = "0~4の数字を入力してください")
     @Max(value = 4, message = "0~4の数字を入力してください")
-    private int playerLine;
+    private String playerLine;
 
-    @NotNull(message = "0~4の数字を入力してください")
+    @NotNull
     @Min(value=0, message = "0~4の数字を入力してください")
     @Max(value = 4, message = "0~4の数字を入力してください")
-    //@Pattern(regexp="x", message = "0~4の数字を入力してください")
-    private int playerColumn;
+    private String playerColumn;
 
     public ValidatedBattlePageForm(){
-        this.playerLine = 0;
-        this.playerColumn = 0;
+        this.playerLine = "";
+        this.playerColumn = "";
     }
-    public int getPlayerLine(){
+    public String getPlayerLine(){
         return playerLine;
     }
-    public void setPlayerLine(int playerLine){
+    public void setPlayerLine(String playerLine){
         this.playerLine = playerLine;
     }
-    public int getPlayerColumn(){
+    public String getPlayerColumn(){
         return playerColumn;
     }
-    public void setPlayerColumn(int playerColumn){
+    public void setPlayerColumn(String playerColumn){
         this.playerColumn = playerColumn;
     }
 

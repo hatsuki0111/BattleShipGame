@@ -1,18 +1,15 @@
 package com.example.kaisen.controller;
 
-import com.example.kaisen.model.bean.ResultHistory;
 import com.example.kaisen.model.bean.ValidatedBattlePageForm;
+import com.example.kaisen.model.bean.ValidatedContinuePageForm;
 import com.example.kaisen.model.service.KaisenService;
 import com.example.kaisen.model.service.ResultHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -25,7 +22,7 @@ public class GameController {
     @Autowired
     private HttpSession httpSession;
     @Autowired
-    private KaisenService service;
+    private KaisenService kaisenService;
     @Autowired
     private ResultHistoryService resultHistoryService;
 
@@ -55,9 +52,16 @@ public class GameController {
         return "GameStartPage";
     }
 
+    //ValidatedContinuePageFormの初期化
+    @ModelAttribute
+    public ValidatedContinuePageForm setupValidatedContinuePageForm(){
+        return new ValidatedContinuePageForm();
+    }
+
     //GameStartPageのPost
-    //`Validatedでvalidationする
+    //Validatedでvalidationする
     //validatedBattlePageFormの直後にerrorsが引数でないといけない
+    //以下空文字処理のために苦肉のStringを使用
     @PostMapping("BattlePage")
     public String battle(@Validated ValidatedBattlePageForm validatedBattlePageForm, Errors errors, Model model) {
 
@@ -70,7 +74,7 @@ public class GameController {
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 5; x++) {
                 //入力した縦と横の数字と座標の比較文字列なのでString.valueof()
-                if (validatedBattlePageForm.getPlayerLine()==y && validatedBattlePageForm.getPlayerColumn()==x) {
+                if (validatedBattlePageForm.getPlayerLine().equals(String.valueOf(y)) && validatedBattlePageForm.getPlayerColumn().equals(String.valueOf(x))) {
                     playerBlocks[y][x] = "W";
                 }
             }
@@ -80,20 +84,22 @@ public class GameController {
 
         //CPU座標
         Random rand = new Random();
-        int cpuLine = rand.nextInt(5);
-        int cpuColumn = rand.nextInt(5);
+        int cpLine = rand.nextInt(5);
+        int cpColumn = rand.nextInt(5);
+        String cpuLine = String.valueOf(cpLine);
+        String cpuColumn = String.valueOf(cpColumn);
 
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 5; x++) {
                 //ランダムで得たCPUの座標をもとの座標と比較する
-                if (cpuLine==y && cpuColumn==x) {
+                if (cpuLine.equals(String.valueOf(y)) && cpuColumn.equals(String.valueOf(x))) {
                     cpuBlocks[y][x] = "W";//表示しない
                 }
             }
         }
         model.addAttribute("cpuBlocks", cpuBlocks);
         //ServiceクラスにPlayerとCPUの座標をセットする
-        service.setBlocks(validatedBattlePageForm.getPlayerLine(), validatedBattlePageForm.getPlayerColumn(), cpuLine, cpuColumn);
+        kaisenService.setBlocks(validatedBattlePageForm.getPlayerLine(), validatedBattlePageForm.getPlayerColumn(), cpuLine, cpuColumn);
 
         return "BattlePage";
     }
@@ -101,37 +107,44 @@ public class GameController {
     //BattlePageのポスト
     //引数はBattlePageのPlayerの攻撃、GameStartPageのCPUの座標、GameStartPageのPlayerの座標、
     @PostMapping("ContinuePage")
-    public String judge(@Validated int playerAttackLine, int playerAttackColumn, Model model) {
+    public String judge(@Validated ValidatedContinuePageForm validatedContinuePageForm, Errors errors, Model model) {
+
+        //ValidationErrorならGameStartPageに遷移させる
+        if(errors.hasErrors()){
+            return "BattlePage";
+        }
 
         /**
          *勝ち1負け2引き分け3再戦4で数字を振るそれで遷移先のページを決める(resultPageNumber)
          *PlayerかCPUのどちらが勝ったかをDBに残すための変数(winnerandloser)
          *DBに何手で勝敗がついたかを残すための変数(score)
-         *ゲームが何回目かはauto_incrimentでしのぐ
+         *ゲームが何回目かはserialでしのぐ
          */
         int resultPageNumber = 0, winnerandloser = 0, count = 1;
 
         //ResultPageで直前の結果を表示するために使用
 
         //Playerの攻撃判定をserviceで行うために、Playerの攻撃座標を引数に成功ならtrueを返す
-        Boolean plAttackJudge = service.plAttackJudge(playerAttackLine, playerAttackColumn);
+        Boolean plAttackJudge = kaisenService.plAttackJudge(validatedContinuePageForm.getPlayerAttackLine(), validatedContinuePageForm.getPlayerAttackColumn());
 
         //CPU攻撃座標
         Random rand = new Random();
-        int cpuAtttackLine = rand.nextInt(5);
-        int cpuAttackColumn = rand.nextInt(5);
+        int cpAtttackLine = rand.nextInt(5);
+        int cpAttackColumn = rand.nextInt(5);
+        String cpuAtttackLine = String.valueOf(cpAtttackLine);
+        String cpuAttackColumn = String.valueOf(cpAttackColumn);
 
         //CPUの攻撃判定をserviceで行うために、CPUの攻撃座標を引数に
-        Boolean cpAttackJudge = service.cpAttackJudge(cpuAtttackLine, cpuAttackColumn);
+        Boolean cpAttackJudge = kaisenService.cpAttackJudge(cpuAtttackLine, cpuAttackColumn);
 
         //両者の攻撃が成功したとき
         if (plAttackJudge && cpAttackJudge) {
             for (int y = 0; y < 5; y++) {
                 for (int x = 0; x < 5; x++) {
-                    if (playerAttackLine==y && playerAttackColumn==x) {
+                    if (validatedContinuePageForm.getPlayerAttackLine().equals(String.valueOf(y)) && validatedContinuePageForm.getPlayerAttackColumn().equals(String.valueOf(x))) {
                         cpuBlocks[y][x] = "X";//CPU陣地に攻撃 あたりX
                     }
-                    if (cpuAtttackLine==y && cpuAttackColumn==x) {
+                    if (cpuAtttackLine.equals(String.valueOf(y)) && cpuAttackColumn.equals(String.valueOf(x))) {
                         playerBlocks[y][x] = "X";//Player陣地に攻撃 あたりX
                     }
                 }
@@ -141,10 +154,10 @@ public class GameController {
         } else if (plAttackJudge) {
             for (int y = 0; y < 5; y++) {
                 for (int x = 0; x < 5; x++) {
-                    if (playerAttackLine==y && playerAttackColumn==x) {
+                    if (validatedContinuePageForm.getPlayerAttackLine().equals(String.valueOf(y)) && validatedContinuePageForm.getPlayerAttackColumn().equals(String.valueOf(x))) {
                         cpuBlocks[y][x] = "X";//あたりX
                     }
-                    if (cpuAtttackLine==y && cpuAttackColumn==x) {
+                    if (cpuAtttackLine.equals(String.valueOf(y)) && cpuAttackColumn.equals(String.valueOf(x))) {
                         playerBlocks[y][x] = "・";//はずれ・
                     }
                 }
@@ -154,10 +167,10 @@ public class GameController {
         } else if (cpAttackJudge) {
             for (int y = 0; y < 5; y++) {
                 for (int x = 0; x < 5; x++) {
-                    if (playerAttackLine==y && playerAttackColumn==x) {
+                    if (validatedContinuePageForm.getPlayerAttackLine().equals(String.valueOf(y)) && validatedContinuePageForm.getPlayerAttackColumn().equals(String.valueOf(x))) {
                         cpuBlocks[y][x] = "・";//はずれ・
                     }
-                    if (cpuAtttackLine==y && cpuAttackColumn==x) {
+                    if (cpuAtttackLine.equals(String.valueOf(y)) && cpuAttackColumn.equals(String.valueOf(x))) {
                         playerBlocks[y][x] = "X";//あたりX
                     }
                 }
@@ -167,10 +180,10 @@ public class GameController {
         } else {
             for (int y = 0; y < 5; y++) {
                 for (int x = 0; x < 5; x++) {
-                    if (playerAttackLine==y && playerAttackColumn==x) {
+                    if (validatedContinuePageForm.getPlayerAttackLine().equals(String.valueOf(y)) && validatedContinuePageForm.getPlayerAttackColumn().equals(String.valueOf(x))){
                         cpuBlocks[y][x] = "・";//はずれ・
                     }
-                    if (cpuAtttackLine==y && cpuAttackColumn==x) {
+                    if (cpuAtttackLine.equals(String.valueOf(y)) && cpuAttackColumn.equals(String.valueOf(x))) {
                         playerBlocks[y][x] = "・";//はずれ・
                     }
                 }
