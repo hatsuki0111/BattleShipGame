@@ -19,8 +19,10 @@ public class ResultHistoryService {
     private int setKekka;
     private String result = "";
 
+
     public void register(int resultPageNumber,int winandlose, int count){
         try{
+            int gamenumber = 0;
             var result = "";
             var winnerandloser = "";
             if(resultPageNumber==1){
@@ -36,7 +38,7 @@ public class ResultHistoryService {
             }
 
             //ResultHistory
-            ResultHistory resultHistory = new ResultHistory(winnerandloser,count,result);
+            ResultHistory resultHistory = new ResultHistory(gamenumber,winnerandloser,count,result);
 
             //勝者、何手、勝敗
             var n = repository.insert(resultHistory);
@@ -50,7 +52,6 @@ public class ResultHistoryService {
     public List<ResultHistory> findAll(){
         try{
             var test = repository.select();
-            System.out.println(test+"件select");
             return test;
         }catch (DataAccessException e){
             e.printStackTrace();

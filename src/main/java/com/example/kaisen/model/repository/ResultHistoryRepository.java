@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import static org.springframework.jdbc.core.BeanPropertyRowMapper.newInstance;
 
 import java.util.List;
 
@@ -23,7 +24,8 @@ public class ResultHistoryRepository {
     }
     //insertメソッドの履歴をselect
     public List<ResultHistory> select(){
-        var sql = "select * from resultHistory";
-        return jdbc.query(sql,new BeanPropertyRowMapper<>(ResultHistory.class),new Object[]{});
+        var sql = "select GAMENUMBER,WINNERANDLOSER,COUNT,RESULT from RESULTHISTORY";
+        return jdbc.query(sql,newInstance(ResultHistory.class));
+        //new BeanPropertyRowMapper<>(ResultHistory.class),new Object[]{}
     }
 }
