@@ -73,6 +73,9 @@ public class GameController {
             return "GameStartPage";
         }
 
+        System.out.println("利用中のブラウザ識別番号:"+httpSession.getId());
+        httpSession.setAttribute("playerLine",validatedBattlePageForm.getPlayerLine());
+
         //GameStartPageでPlayerがいれた座標
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 5; x++) {

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>kaisen</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>kaisen</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -82,13 +82,35 @@
 		</dependency>
 	</dependencies>
 
-	<build>
+    <build>
+        <!-- 実行形式ファイル名を設定する -->
+        <finalName>${project.artifactId}-${maven.build.timestamp}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- Spring-Bootプロジェクトを、executable-warとしてビルドする -->
+				<configuration>
+					<executable>true</executable>
+				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+
+        <!-- ビルドの際に、htmlファイルをクラスフォルダに含める -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
 
 </project>
