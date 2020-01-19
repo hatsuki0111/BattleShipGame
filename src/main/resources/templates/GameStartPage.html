@@ -9,9 +9,9 @@
 
 <form action='BattlePage'  method='post'>
     縦(0～4)<input type='text' name='playerLine' th:field="*{validatedBattlePageForm.playerLine}">
-    <span th:if="${#fields.hasErrors('*{validatedBattlePageForm.playerLine}')}" th:errors="*{validatedBattlePageForm.playerLine}" style="color:red"></span><br />
+    <span th:if="${#fields.hasErrors('validatedBattlePageForm.playerLine')}" th:errors="*{validatedBattlePageForm.playerLine}" style="color:red"></span><br />
     横(0～4)<input type='text' name='playerColumn' th:field="*{validatedBattlePageForm.playerColumn}">
-    <span th:if="${#fields.hasErrors('*{validatedBattlePageForm.playerColumn}')}" th:errors="*{validatedBattlePageForm.playerColumn}" style="color:red"></span><br />
+    <span th:if="${#fields.hasErrors('validatedBattlePageForm.playerColumn')}" th:errors="*{validatedBattlePageForm.playerColumn}" style="color:red"></span><br />
     <button type='submit'>送信</button>
 </form>
 </body>

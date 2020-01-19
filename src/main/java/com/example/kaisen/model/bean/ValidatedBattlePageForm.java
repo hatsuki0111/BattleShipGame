@@ -12,14 +12,14 @@ public class ValidatedBattlePageForm {
      */
 
     //groupsでvalidationの順番を制御する
-    @NotNull
-    @Min(value=0, message = "0~4の数字を入力してください")
-    @Max(value = 4, message = "0~4の数字を入力してください")
+    @NotNull(message = "0~4の数字を入力してください",groups = IValidatedBtPlFm1.class)
+    @Min(value=0, message = "0~4の数字を入力してください", groups = IValidatedBtPlFm2.class)
+    @Max(value = 4, message = "0~4の数字を入力してください", groups = IValidatedBtPlFm3.class)
     private String playerLine;
 
-    @NotNull
-    @Min(value=0, message = "0~4の数字を入力してください")
-    @Max(value = 4, message = "0~4の数字を入力してください")
+    @NotNull(message = "0~4の数字を入力してください",groups = IValidatedBtPlFm1.class)
+    @Min(value=0, message = "0~4の数字を入力してください",groups = IValidatedBtPlFm2.class)
+    @Max(value = 4, message = "0~4の数字を入力してください",groups = IValidatedBtPlFm3.class)
     private String playerColumn;
 
     public ValidatedBattlePageForm(){

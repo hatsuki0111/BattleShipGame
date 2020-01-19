@@ -6,14 +6,14 @@ import javax.validation.constraints.NotNull;
 
 public class ValidatedContinuePageForm {
     //groupsでvalidationの順番を制御する
-    @NotNull
-    @Min(value=0, message = "0~4の数字を入力してください")
-    @Max(value = 4, message = "0~4の数字を入力してください")
+   // @NotNull
+   // @Min(value=0, message = "0~4の数字を入力してください")
+    //@Max(value = 4, message = "0~4の数字を入力してください")
     private String playerAttackLine;
 
-    @NotNull
-    @Min(value=0, message = "0~4の数字を入力してください")
-    @Max(value = 4, message = "0~4の数字を入力してください")
+    //@NotNull
+    //@Min(value=0, message = "0~4の数字を入力してください")
+    //@Max(value = 4, message = "0~4の数字を入力してください")
     private String playerAttackColumn;
 
     public ValidatedContinuePageForm(){

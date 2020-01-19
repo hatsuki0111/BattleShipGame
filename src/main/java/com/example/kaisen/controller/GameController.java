@@ -1,5 +1,6 @@
 package com.example.kaisen.controller;
 
+import com.example.kaisen.model.bean.IBtPlFmOrder;
 import com.example.kaisen.model.bean.ValidatedBattlePageForm;
 import com.example.kaisen.model.bean.ValidatedContinuePageForm;
 import com.example.kaisen.model.service.KaisenService;
@@ -7,6 +8,7 @@ import com.example.kaisen.model.service.ResultHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.Random;
 
 @Controller
@@ -63,7 +66,7 @@ public class GameController {
     //validatedBattlePageFormの直後にerrorsが引数でないといけない
     //以下空文字処理のために苦肉のStringを使用
     @PostMapping("BattlePage")
-    public String battle(@Validated ValidatedBattlePageForm validatedBattlePageForm, Errors errors, Model model) {
+    public String battle(@Validated(IBtPlFmOrder.class) ValidatedBattlePageForm validatedBattlePageForm, Errors errors, Model model) {
 
         //ValidationErrorならGameStartPageに遷移させる
         if(errors.hasErrors()){
@@ -107,12 +110,7 @@ public class GameController {
     //BattlePageのポスト
     //引数はBattlePageのPlayerの攻撃、GameStartPageのCPUの座標、GameStartPageのPlayerの座標、
     @PostMapping("ContinuePage")
-    public String judge(@Validated ValidatedContinuePageForm validatedContinuePageForm, Errors errors, Model model) {
-
-        //ValidationErrorならGameStartPageに遷移させる
-        if(errors.hasErrors()){
-            return "BattlePage";
-        }
+    public String judge(ValidatedContinuePageForm validatedContinuePageForm, Model model) {
 
         /**
          *勝ち1負け2引き分け3再戦4で数字を振るそれで遷移先のページを決める(resultPageNumber)
