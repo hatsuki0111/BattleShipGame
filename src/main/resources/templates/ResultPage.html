@@ -6,6 +6,7 @@
 </head>
 <body>
 <p>あなたの攻撃が命中しました!あなたの[[${kekka}]]です！</p>
+<a href="TweetPage">結果をツイートする</a><br>
 <a href="GameStartPage">ゲーム再開</a>
 <ul th:each="ri:${resultHistories}">
     <li>[[${ri.gamenumber}]]回目----[[${ri.winnerandloser}]]が[[${ri.count}]]手目で[[${ri.result}]]</li>

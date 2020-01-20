@@ -1,5 +1,6 @@
 package com.example.kaisen.controller;
 
+import com.example.kaisen.model.Tweet.Tweet;
 import com.example.kaisen.model.bean.IBtPlFmOrder;
 import com.example.kaisen.model.bean.ValidatedBattlePageForm;
 import com.example.kaisen.model.bean.ValidatedContinuePageForm;
@@ -199,6 +200,14 @@ public class GameController {
         var kekka = resultHistoryService.kekka();
         model.addAttribute("kekka",kekka);
         return "ResultPage";
+    }
+    @GetMapping("TweetPage")
+    public String tweet(Model model){
+        var tweetKekka = resultHistoryService.kekka();
+        Tweet tweet = new Tweet();
+        tweet.doHogeHoge(tweetKekka);
+        tweet.getTwitter();
+        return "TweetPage";
     }
 }
 
