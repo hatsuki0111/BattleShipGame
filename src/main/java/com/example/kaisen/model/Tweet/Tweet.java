@@ -12,7 +12,7 @@ public class Tweet {
         getTwitter();
         try {
             //先頭に#でハッシュタグ
-            twitter.updateStatus("#BattleShipGameJava"+"\r\n"+"あなたは"+tweetKekka+"です");
+            twitter.updateStatus("#BattleShipGameJava"+"\r\n"+"あなたは"+tweetKekka+"です"+"\r\n"+(new java.util.Date()));
         }catch (TwitterException e){
             e.printStackTrace();
         }
