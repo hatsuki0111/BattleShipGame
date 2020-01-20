@@ -22,10 +22,10 @@ public class Tweet {
         if (twitter == null) {
             ConfigurationBuilder cb = new ConfigurationBuilder();
             cb.setDebugEnabled(true)
-                    .setOAuthConsumerKey("dayQHbvKvSd5SpiyD5K6JwKLM")
-                    .setOAuthConsumerSecret("zMHk7665aZmimU7SdGVAsOMLyvFJuACoWOVatvuxUj5cdQFxSD")
-                    .setOAuthAccessToken("1051757940879765504-p0URTijS6VhCFCf8BO8X3UFQI5z8Ff")
-                    .setOAuthAccessTokenSecret("Avu95L2CimMA8Zhg7XJOnoxPbSyyJ1M5hKjYxewMxzjUw");
+                    .setOAuthConsumerKey("fjkaomowaioaLLLLLLLmaLLLLLL")
+                    .setOAuthConsumerSecret("okokokokkkkokokoklololo2795837597927759832rljwnwewo")
+                    .setOAuthAccessToken("1707492874907848-joajvmvproiOIIOOOOIOOIJKjjtkrlaa")
+                    .setOAuthAccessTokenSecret("vanivupaAAAAAAAAAAAflakajj905782ajvjavjvjpavvv");
             TwitterFactory tf = new TwitterFactory(cb.build());
             twitter = tf.getInstance();
         }
