@@ -7,8 +7,8 @@
 <body>
 <p>お互いの攻撃が外れました！もう一度攻撃しましょう！</p><br>
 <form action='ContinuePage' method='post'>
-    縦(0～4)<input type='text' name='playerAttackLine'><br />
-    横(0～4)<input type='text' name='playerAttackColumn'><br />
+    縦(0～4)<input type='text' pattern="[0-4]" name='playerAttackLine' required><br />
+    横(0～4)<input type='text' pattern="[0-4]" name='playerAttackColumn' required><br />
     <button type='submit'>送信</button>
 </form>
 <p style="text-align : center ;">あなたの陣地</p>
