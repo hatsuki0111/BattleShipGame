@@ -3,14 +3,10 @@ package com.example.kaisen.controller;
 import com.example.kaisen.model.bean.IBtPlFmOrder;
 import com.example.kaisen.model.bean.ValidatedBattlePageForm;
 import com.example.kaisen.model.bean.ValidatedContinuePageForm;
-import com.example.kaisen.model.service.CpuRandomService;
-import com.example.kaisen.model.service.KaisenService;
-import com.example.kaisen.model.service.ResultHistoryService;
-import com.example.kaisen.model.service.SetPositionService;
+import com.example.kaisen.model.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.util.Random;
 
 @Controller
 public class GameController {
@@ -34,6 +28,8 @@ public class GameController {
     private SetPositionService setPositionService;
     @Autowired
     private CpuRandomService cpuRandomService;
+    @Autowired
+    private GameCountService gameCountService;
 
     //Playerの座標
     String[][] playerBlocks = new String[5][5];
@@ -99,10 +95,10 @@ public class GameController {
         /**
          *勝ち1負け2引き分け3再戦4で数字を振るそれで遷移先のページを決める(resultPageNumber)
          *PlayerかCPUのどちらが勝ったかをDBに残すための変数(winnerandloser)
-         *DBに何手で勝敗がついたかを残すための変数(score)
+         *DBに何手で勝敗がついたかを残すための変数(count)
          *ゲームが何回目かはserialでしのぐ
          */
-        int resultPageNumber = 0, winnerandloser = 0, count = 1;
+        int resultPageNumber = 0, winnerandloser = 0;
 
         //Playerの攻撃判定をserviceで行うために、Playerの攻撃座標を引数に成功ならtrueを返す
         Boolean plAttackJudge = kaisenService.plAttackJudge(validatedContinuePageForm.getPlayerAttackLine(), validatedContinuePageForm.getPlayerAttackColumn());
@@ -168,10 +164,13 @@ public class GameController {
                 }
             }
             resultPageNumber = 4;//再戦
-            count += 1;//何手かをインクリメントする
+            gameCountService.gameCount();//何手かをインクリメントする
         }
         model.addAttribute("playerBlocks",playerBlocks);
         model.addAttribute("cpuBlocks",cpuBlocks);
+
+        var saveCount = gameCountService.gameCount();
+        var count = saveCount/2;
 
         //DBに勝敗を残す
         //勝ち、負け、引き分けのとき
