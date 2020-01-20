@@ -46,6 +46,8 @@ public class GameController {
     public String gameStart(Model model) {
         setPositionService.setPlayerPosition(playerBlocks);
         setPositionService.setCpuPosition(cpuBlocks);
+        //何手目かの初期化(count)
+        gameCountService.setGameCount();
         return "GameStartPage";
     }
 
